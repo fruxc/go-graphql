@@ -4,5 +4,5 @@ package graph
 //
 // It serves as dependency injection for your app, add any dependencies you require here.
 
-//Resolver declaration
+//Resolver : struct def
 type Resolver struct{}

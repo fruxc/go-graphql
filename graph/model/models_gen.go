@@ -2,13 +2,13 @@
 
 package model
 
-type Dog struct {
-	ID        string `json:"_id" bson:"_id"`
-	Name      string `json:"name"`
-	IsGoodBoy bool   `json:"isGoodBoy"`
+type Bike struct {
+	ID         string `json:"_id"`
+	Name       string `json:"name"`
+	IsGoodBike bool   `json:"isGoodBike"`
 }
 
-type NewDog struct {
-	Name      string `json:"name"`
-	IsGoodBoy bool   `json:"isGoodBoy"`
+type NewBike struct {
+	Name       string `json:"name"`
+	IsGoodBike bool   `json:"isGoodBike"`
 }

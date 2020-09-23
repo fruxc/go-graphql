@@ -13,15 +13,13 @@ import (
 
 var db = database.Connect()
 
-func (r *mutationResolver) CreateDog(ctx context.Context, input *model.NewDog) (*model.Dog, error) {
+func (r *mutationResolver) CreateDog(ctx context.Context, input *model.NewBike) (*model.Bike, error) {
 	return db.Save(input), nil
 }
-
-func (r *queryResolver) Dog(ctx context.Context, id string) (*model.Dog, error) {
+func (r *queryResolver) Dog(ctx context.Context, id string) (*model.Bike, error) {
 	return db.FindByID(id), nil
 }
-
-func (r *queryResolver) Dogs(ctx context.Context) ([]*model.Dog, error) {
+func (r *queryResolver) Dogs(ctx context.Context) ([]*model.Bike, error) {
 	return db.All(), nil
 }
 

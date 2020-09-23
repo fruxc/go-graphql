@@ -12,12 +12,12 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
-//DB : Database Structure
+// DB Structure
 type DB struct {
 	client *mongo.Client
 }
 
-//Connect : A connect setting for th mongo database
+//Connect : for connection to database
 func Connect() *DB {
 	client, err := mongo.NewClient(options.Client().ApplyURI("mongodb://localhost:27017"))
 	if err != nil {
@@ -31,54 +31,54 @@ func Connect() *DB {
 	}
 }
 
-//Save : Insert operation on database
-func (db *DB) Save(input *model.NewDog) *model.Dog {
-	collection := db.client.Database("animals").Collection("dogs")
+//Save : for inserting data into database
+func (db *DB) Save(input *model.NewBike) *model.Bike {
+	collection := db.client.Database("vehicle").Collection("bikes")
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
 	res, err := collection.InsertOne(ctx, input)
 	if err != nil {
 		log.Fatal(err)
 	}
-	return &model.Dog{
-		ID:        res.InsertedID.(primitive.ObjectID).Hex(),
-		Name:      input.Name,
-		IsGoodBoy: input.IsGoodBoy,
+	return &model.Bike{
+		ID:         res.InsertedID.(primitive.ObjectID).Hex(),
+		Name:       input.Name,
+		IsGoodBike: input.IsGoodBike,
 	}
 }
 
-// FindByID is to get a single result
-func (db *DB) FindByID(ID string) *model.Dog {
+//FindByID finds one document from the database
+func (db *DB) FindByID(ID string) *model.Bike {
 	ObjectID, err := primitive.ObjectIDFromHex(ID)
 	if err != nil {
 		log.Fatal(err)
 	}
-	collection := db.client.Database("animals").Collection("dogs")
+	collection := db.client.Database("vehicle").Collection("bikes")
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
 	res := collection.FindOne(ctx, bson.M{"_id": ObjectID})
-	dog := model.Dog{}
-	res.Decode(&dog)
-	return &dog
+	bike := model.Bike{}
+	res.Decode(&bike)
+	return &bike
 }
 
-// All : returns All documents
-func (db *DB) All() []*model.Dog {
-	collection := db.client.Database("animals").Collection("dogs")
+//All : to get all the data from the database
+func (db *DB) All() []*model.Bike {
+	collection := db.client.Database("vehicle").Collection("bikes")
 	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 	defer cancel()
 	cur, err := collection.Find(ctx, bson.D{})
 	if err != nil {
 		log.Fatal(err)
 	}
-	var dogs []*model.Dog
+	var bikes []*model.Bike
 	for cur.Next(ctx) {
-		var dog *model.Dog
-		err := cur.Decode(&dog)
+		var bike *model.Bike
+		err := cur.Decode(&bike)
 		if err != nil {
 			log.Fatal(err)
 		}
-		dogs = append(dogs, dog)
+		bikes = append(bikes, bike)
 	}
-	return dogs
+	return bikes
 }
