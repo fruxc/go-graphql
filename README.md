@@ -10,4 +10,4 @@ Go run ./server.go
 
 ## Queries
 ### Mutation
-![Mutation](https://www.github.com/fruxc/go-graphql/assets/findAll.png?raw=true "Mutation Query")
+![Mutation](https://github.com/fruxc/go-graphql/blob/master/assets/mutation.png?raw=true "Mutation Query")
