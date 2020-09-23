@@ -44,9 +44,9 @@ type DirectiveRoot struct {
 
 type ComplexityRoot struct {
 	Bike struct {
-		ID         func(childComplexity int) int
-		IsGoodBike func(childComplexity int) int
-		Name       func(childComplexity int) int
+		ID        func(childComplexity int) int
+		IsNewBike func(childComplexity int) int
+		Name      func(childComplexity int) int
 	}
 
 	Mutation struct {
@@ -89,12 +89,12 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.Bike.ID(childComplexity), true
 
-	case "Bike.isGoodBike":
-		if e.complexity.Bike.IsGoodBike == nil {
+	case "Bike.isNewBike":
+		if e.complexity.Bike.IsNewBike == nil {
 			break
 		}
 
-		return e.complexity.Bike.IsGoodBike(childComplexity), true
+		return e.complexity.Bike.IsNewBike(childComplexity), true
 
 	case "Bike.name":
 		if e.complexity.Bike.Name == nil {
@@ -201,7 +201,7 @@ var sources = []*ast.Source{
 	{Name: "graph/schema.graphqls", Input: `type Bike {
   _id: String!
   name: String!
-  isGoodBike: Boolean!
+  isNewBike: Boolean!
 }
 
 type Query {
@@ -211,7 +211,7 @@ type Query {
 
 input NewBike {
   name: String!
-  isGoodBike: Boolean!
+  isNewBike: Boolean!
 }
 
 type Mutation {
@@ -377,7 +377,7 @@ func (ec *executionContext) _Bike_name(ctx context.Context, field graphql.Collec
 	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Bike_isGoodBike(ctx context.Context, field graphql.CollectedField, obj *model.Bike) (ret graphql.Marshaler) {
+func (ec *executionContext) _Bike_isNewBike(ctx context.Context, field graphql.CollectedField, obj *model.Bike) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -395,7 +395,7 @@ func (ec *executionContext) _Bike_isGoodBike(ctx context.Context, field graphql.
 	ctx = graphql.WithFieldContext(ctx, fc)
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return obj.IsGoodBike, nil
+		return obj.IsNewBike, nil
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -1703,11 +1703,11 @@ func (ec *executionContext) unmarshalInputNewBike(ctx context.Context, obj inter
 			if err != nil {
 				return it, err
 			}
-		case "isGoodBike":
+		case "isNewBike":
 			var err error
 
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("isGoodBike"))
-			it.IsGoodBike, err = ec.unmarshalNBoolean2bool(ctx, v)
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("isNewBike"))
+			it.IsNewBike, err = ec.unmarshalNBoolean2bool(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -1746,8 +1746,8 @@ func (ec *executionContext) _Bike(ctx context.Context, sel ast.SelectionSet, obj
 			if out.Values[i] == graphql.Null {
 				invalids++
 			}
-		case "isGoodBike":
-			out.Values[i] = ec._Bike_isGoodBike(ctx, field, obj)
+		case "isNewBike":
+			out.Values[i] = ec._Bike_isNewBike(ctx, field, obj)
 			if out.Values[i] == graphql.Null {
 				invalids++
 			}

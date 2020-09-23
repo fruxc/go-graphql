@@ -3,12 +3,12 @@
 package model
 
 type Bike struct {
-	ID         string `json:"_id"`
-	Name       string `json:"name"`
-	IsGoodBike bool   `json:"isGoodBike"`
+	ID        string `json:"_id"`
+	Name      string `json:"name"`
+	IsNewBike bool   `json:"isNewBike"`
 }
 
 type NewBike struct {
-	Name       string `json:"name"`
-	IsGoodBike bool   `json:"isGoodBike"`
+	Name      string `json:"name"`
+	IsNewBike bool   `json:"isNewBike"`
 }

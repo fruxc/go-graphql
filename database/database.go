@@ -41,9 +41,9 @@ func (db *DB) Save(input *model.NewBike) *model.Bike {
 		log.Fatal(err)
 	}
 	return &model.Bike{
-		ID:         res.InsertedID.(primitive.ObjectID).Hex(),
-		Name:       input.Name,
-		IsGoodBike: input.IsGoodBike,
+		ID:        res.InsertedID.(primitive.ObjectID).Hex(),
+		Name:      input.Name,
+		IsNewBike: input.IsNewBike,
 	}
 }
 
