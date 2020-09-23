@@ -1,9 +1,4 @@
-# GO Lang GraphQL Server
-
-[![npm version][npm-badge]][npm-url]
-[![Build Status][build-badge]][build-url]
-[![prettier][prettier-badge]][prettier-url]
-[![GoLang][GoLang-badge]][GoLang-url]
+# Go Lang GraphQL Server
 
 _👀 Easily create a new GoLang and GraphQL Server Using gqlgen_
 
@@ -12,3 +7,7 @@ _👀 Easily create a new GoLang and GraphQL Server Using gqlgen_
 ```bash
 Go run ./server.go
 ```
+
+## Queries
+### Mutation
+![Mutation](go-graphql/assets/findAll.png?raw=true "Mutation Query")
